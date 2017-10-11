@@ -16,12 +16,15 @@
 ## 配置
 
 - 添加 service provider: `\Zmecust\LaravelPermission\ZmecustServiceProvider::class`
+
 - 添加 UserTrait: 在用户表模型中添加 `use Zmecust\LaravelPermission\Traits\ZmecustUserTrait`
-- 添加 Middleware: 在 Http kernel.php 添加 `'check.login' => \Zmecust\LaravelPermission\Middleware\CheckLogin::class` 和 `'check.permission' => \Zmecust\LaravelPermission\Middleware\CheckPermissions::class`
+
+- 添加 Middleware: 在 Http kernel.php 添加 `'check.login' => \Zmecust\LaravelPermission\Middleware\CheckLogin::class` 和 `'check.permission' => \Zmecust\LaravelPermission\Middleware\CheckPermissions::class`, 并在 zmecust.php 文件中配置 middleware
+
 - 配置文件: `php artisan vendor:publish --provider="Zmecust\\LaravelPermission\\ZmecustServiceProvider"`
 
 ## 配置说明
-``
+```
 return [
     'user_table' => [
         'name'  => 'users',
@@ -36,6 +39,6 @@ return [
 
     'service_name' => '' //项目名，非必须
 ];
-``
+```
 
 - 如有任何疑问或者 bug，欢迎联系 `root@laravue.org`
