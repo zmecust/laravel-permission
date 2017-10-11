@@ -9,6 +9,7 @@
 namespace Zmecust\LaravelPermission\Repositories;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 use Zmecust\LaravelPermission\Models\Menu;
 use Zmecust\LaravelPermission\Models\Permission;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,14 +35,13 @@ class MenuRepository
     /**
      * MenuRepository constructor.
      * @param Menu $menu
-     * @param User $user
      * @param Permission $permission
      */
     public function __construct(Menu $menu, Permission $permission)
     {
         $this->menu = $menu;
         $this->permission = $permission;
-        $this->user = config('zmecust.user_table.model');
+        $this->user = app(config('zmecust.user_table.model'));
     }
 
     /**
@@ -62,11 +62,16 @@ class MenuRepository
 
                 //不存在权限验证的直接通过，比如一级菜单
                 if (!empty($permission_info)) {
-                    $access_token = $request->header('authorization');
-                    $user_id = Cache::get('EDU'.$access_token);
-                    $permissions = $this->user->where('id', $user_id)->first()
-                        ->roles()->first()
-                        ->perms()->pluck('name')->toArray(); //获取当前用户所有权限名
+                    if (config('zmecust.service_name')) {
+                        $access_token = $request->header('authorization');
+                        $user_id = Cache::get(config('zmecust.service_name') . $access_token);
+                        $permissions = $this->user->where('id', $user_id)->first()
+                            ->roles()->first()
+                            ->perms()->pluck('name')->toArray(); //获取当前用户所有权限名
+                    } else {
+                        $permissions = Auth::user()->roles()->first()
+                            ->perms()->pluck('name')->toArray(); //获取当前用户所有权限名
+                    }
 
                     if (!in_array(implode($permission_info->toArray()), $permissions)) {
                         continue;

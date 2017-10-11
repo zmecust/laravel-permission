@@ -36,11 +36,17 @@ class Role extends Model
         ];
     }
 
+    /**
+     * @return mixed
+     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'role_user');
     }
 
+    /**
+     * @return mixed
+     */
     public function perms()
     {
         return $this->belongsToMany(Permission::class, 'permission_role');

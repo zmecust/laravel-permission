@@ -7,15 +7,15 @@
  */
 return [
     'user_table' => [
-        'id'    => 'id',
         'name'  => 'users',
-        'model' => \App\Models\User::class, //change to your user model class
+        'model' => \App\User::class, //用户模型
     ],
+
     'router' => [
-        'prefix' => 'admin',
+        'prefix' => 'admin', //路由前缀
     ],
-    'middleware' => [
-        'common' => 'web',
-        'auth'   => 'auth',
-    ],
+
+    'middleware' => ['auth'], //中间件
+
+    'service_name' => '' //项目名，非必须
 ];

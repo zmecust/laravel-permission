@@ -27,7 +27,7 @@ class UserRepository
      */
     public function __construct(Role $role)
     {
-        $this->user = config('zmecust.user_table.model');
+        $this->user = app(config('zmecust.user_table.model'));
         $this->role = $role;
     }
 

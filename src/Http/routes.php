@@ -10,9 +10,9 @@ $options = [
     'namespace' => '\Zmecust\LaravelPermission\Http\Controllers',
 ];
 
-//if (config('zmecust.middleware.common')) {
-//    $options['middleware'] = config('cas.middleware.common');
-//}
+if (config('zmecust.middleware')) {
+    $options['middleware'] = config('zmecust.middleware');
+}
 
 Route::group(
     $options,
