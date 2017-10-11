@@ -1,0 +1,22 @@
+{
+    "name": "zmecust/laravel-permission",
+    "description": "a laravel package about permission management",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Min Zhang",
+            "email": "root@laravue.org"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.0",
+        "ext-dom": "*",
+        "laravel/framework": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zmecust\\LaravelPermission\\": "src"
+        }
+    }
+}
